@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.cjsah.rtos.bot.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "MinecraftServerMixin",
+    "ServerMsgMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

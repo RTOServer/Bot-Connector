@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "id": "rtos-connector",
+  "version": "${version}",
+  "name": "RTOS-Connector",
+  "description": "RTOS server and bot connector",
+  "authors": [
+    "Cjsah"
+  ],
+  "license": "MIT",
+  "environment": "*",
+  "mixins": [
+    "rtos.mixins.json"
+  ],
+  "depends": {
+    "minecraft": "*",
+    "fabricloader": "*"
+  }
+}
