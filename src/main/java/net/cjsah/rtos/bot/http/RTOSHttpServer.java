@@ -52,7 +52,7 @@ public class RTOSHttpServer {
             }
 
             String msg = "<%s> %s".formatted(body.player(), body.msg());
-            MutableText text = Text.literal(msg).formatted(Formatting.DARK_GRAY);
+            MutableText text = Text.literal(msg).formatted(Formatting.GRAY);
             this.server.getPlayerManager().broadcast(text, false);
             this.server.sendMessage(text);
 
