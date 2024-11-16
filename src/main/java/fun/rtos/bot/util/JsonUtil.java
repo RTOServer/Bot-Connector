@@ -1,7 +1,8 @@
-package net.cjsah.rtos.bot;
+package fun.rtos.bot.util;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +22,7 @@ public class JsonUtil {
         return GSON.fromJson(json, clazz);
     }
 
-    public static <T> T deserialize(InputStream is, Class<T> clazz) {
+    public static <T> @Nullable T deserialize(InputStream is, Class<T> clazz) {
         try (InputStreamReader isr = new InputStreamReader(is)) {
             return GSON.fromJson(isr, clazz);
         } catch (IOException e) {
@@ -29,6 +30,4 @@ public class JsonUtil {
             return null;
         }
     }
-
-
 }

@@ -5,12 +5,16 @@
   "name": "RTOS-Connector",
   "description": "RTOS server and bot connector",
   "authors": [
-    "Cjsah"
+    "Cjsah",
+    "Gugle"
   ],
   "license": "MIT",
-  "environment": "*",
+  "environment": "server",
   "mixins": [
-    "rtos.mixins.json"
+    {
+      "config": "rtos-connector.mixins.json",
+      "environment": "server"
+    }
   ],
   "depends": {
     "minecraft": "*",

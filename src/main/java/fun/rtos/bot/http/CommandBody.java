@@ -1,4 +1,6 @@
-package net.cjsah.rtos.bot.http;
+package fun.rtos.bot.http;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
@@ -13,9 +15,7 @@ public record CommandBody(String command) {
     }
 
     @Override
-    public String toString() {
-        return "CommandBody{" +
-                "command='" + command + '\'' +
-                '}';
+    public @NotNull String toString() {
+        return "CommandBody{command='%s'}".formatted(command);
     }
 }

@@ -1,4 +1,6 @@
-package net.cjsah.rtos.bot.http;
+package fun.rtos.bot.http;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
@@ -17,10 +19,7 @@ public record PlayerMsg(String player, String msg) {
     }
 
     @Override
-    public String toString() {
-        return "PlayerMsg{" +
-                "player='" + player + '\'' +
-                ", msg='" + msg + '\'' +
-                '}';
+    public @NotNull String toString() {
+        return "PlayerMsg{player='%s', msg='%s'}".formatted(player, msg);
     }
 }
