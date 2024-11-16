@@ -2,12 +2,15 @@ plugins {
 	id 'fabric-loom' version '1.7-SNAPSHOT'
 }
 
-archivesBaseName = project.archives_base_name
 version = mod_version
 group = maven_group
 
+if (build_number != "undefined") {
+    version += "+build.${build_number}"
+}
+
 base {
-	archivesName = project.archives_base_name
+    archivesName = project.archives_base_name + "-mc" + project.mc_version
 }
 
 loom {
