@@ -5,9 +5,9 @@ import com.google.gson.JsonObject;
 import com.sun.net.httpserver.HttpExchange;
 import fun.rtos.bot.RTOSConnector;
 import fun.rtos.bot.util.JsonUtil;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -27,7 +27,7 @@ public class HttpRequests {
             RTOSHttpServer.sendError(exchange, "请传入命令");
             return;
         }
-        RTOSConnector.server.getCommandManager().executeWithPrefix(RTOSConnector.server.getCommandSource(), body.command());
+        RTOSConnector.server.getCommands().performPrefixedCommand(RTOSConnector.server.createCommandSourceStack(), body.command());
 
         RTOSHttpServer.sendPass(exchange, null);
     }
@@ -41,10 +41,9 @@ public class HttpRequests {
         }
 
         String msg = "<%s> %s".formatted(body.player(), body.msg());
-        MutableText text = Text.literal(msg).formatted(Formatting.GRAY);
-        RTOSConnector.server.getPlayerManager().broadcast(text, false);
-        RTOSConnector.server.sendMessage(text);
-
+        MutableComponent text = Component.literal(msg).withStyle(ChatFormatting.GRAY);
+        RTOSConnector.server.getPlayerList().broadcastSystemMessage(text, false);
+        RTOSConnector.server.sendSystemMessage(text);
         RTOSHttpServer.sendPass(exchange, null);
     }
 

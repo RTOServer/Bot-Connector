@@ -1,22 +1,22 @@
 package fun.rtos.bot.mixin;
 
 import fun.rtos.bot.http.HttpRequests;
-import net.minecraft.network.message.MessageType;
-import net.minecraft.network.message.SignedMessage;
-import net.minecraft.server.PlayerManager;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.network.chat.ChatType;
+import net.minecraft.network.chat.PlayerChatMessage;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.network.ServerGamePacketListenerImpl;
+import net.minecraft.server.players.PlayerList;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(ServerPlayNetworkHandler.class)
+@Mixin(ServerGamePacketListenerImpl.class)
 public class ServerMsgMixin {
 
-    @Redirect(method = "handleDecoratedMessage", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/PlayerManager;broadcast(Lnet/minecraft/network/message/SignedMessage;Lnet/minecraft/server/network/ServerPlayerEntity;Lnet/minecraft/network/message/MessageType$Parameters;)V"))
-    private void onMessage(@NotNull PlayerManager instance, @NotNull SignedMessage message, @NotNull ServerPlayerEntity sender, MessageType.Parameters params) {
-        HttpRequests.msg(sender.getNameForScoreboard(), message.getSignedContent());
-        instance.broadcast(message, sender, params);
+    @Redirect(method = "broadcastChatMessage", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/players/PlayerList;broadcastChatMessage(Lnet/minecraft/network/chat/PlayerChatMessage;Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/network/chat/ChatType$Bound;)V"))
+    private void onMessage(@NotNull PlayerList instance, @NotNull PlayerChatMessage message, @NotNull ServerPlayer sender, ChatType.Bound bound) {
+        HttpRequests.msg(sender.getScoreboardName(), message.signedContent());
+        instance.broadcastChatMessage(message, sender, bound);
     }
 }

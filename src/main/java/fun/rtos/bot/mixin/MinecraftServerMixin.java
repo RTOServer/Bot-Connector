@@ -9,12 +9,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(MinecraftServer.class)
 public class MinecraftServerMixin {
-    @Inject(method = "runServer", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Util;getMeasuringTimeNano()J", ordinal = 0))
+    @Inject(method = "runServer", at = @At(value = "INVOKE", target = "Lnet/minecraft/Util;getNanos()J", ordinal = 0))
     private void start(CallbackInfo ci) {
         RTOSConnector.onServerRun((MinecraftServer) (Object) this);
     }
 
-    @Inject(method = "stop", at = @At("HEAD"))
+    @Inject(method = "halt", at = @At("HEAD"))
     public void stop(boolean waitForShutdown, CallbackInfo ci) {
         RTOSConnector.onServerStop((MinecraftServer) (Object) this);
     }
